@@ -184,7 +184,7 @@
         <section id="start-screen" class="screen active-screen" onclick="startGame()">
             <div class="media-layer">
                 <video autoplay loop muted playsinline id="intro-video">
-                    <source src="https://drive.google.com/file/d/1jb8dhBi-Q8Kh-6-N8gm-nVEZWcVwIICl/view?usp=sharing" type="video/mp4">
+                    <source src="https://github.com/user-attachments/assets/053a0ff2-1790-4924-aefc-ccda777dd5b1" type="video/mp4">
                 </video>
                 <div class="media-placeholder pixel-font" id="intro-placeholder">
                     <div class="text-4xl mb-4">🇰🇷</div>
@@ -354,10 +354,10 @@
                 feedback: "It is an unspoken rule to set out utensils from the table drawer as soon as you sit down." 
             },
             { 
-                icon: "🚇", video: "ail.mp4", 
+                icon: "🚇", video: "https://github.com/user-attachments/assets/c8b2bf4c-0fe5-4054-bb9f-5994d1f23dad", 
                 introText: "Taking the subway. The seats are different colors. Where should I sit?", 
                 a: "Pink seats", b: "Blue seats", 
-                imgA: "pink_seat.jpg", imgB: "blue_seat.jpg",
+                imgA: "https://github.com/user-attachments/assets/0fc3c1f4-88dc-4d85-8c82-fab6a3f41a73", imgB: "https://github.com/user-attachments/assets/33337c25-dbdd-4afa-b6f4-380589e587a8",
                 answer: "B", 
                 feedback: "Pink seats are for pregnant women. Even if empty, it’s polite to leave them for those in need." 
             },
@@ -394,10 +394,13 @@
                 feedback: "It is not customary to make small talk with strangers. Pay quickly and be on your way." 
             },
             { 
-                icon: "🏃", video: "ail.mp4", 
+                icon: "🏃", video: "https://github.com/user-attachments/assets/c8b2bf4c-0fe5-4054-bb9f-5994d1f23dad", 
                 introText: "Using the escalator in a busy subway station.", 
                 a: "Line up on the left", b: "Line up on the right", 
-                imgA: "stand_left.jpg", imgB: "stand_right.jpg",
+                imgA: "https://github.com/user-attachments/assets/0fc3c1f4-88dc-4d85-8c82-fab6a3f41a73", 
+                imgB: "https://github.com/user-attachments/assets/33337c25-dbdd-4afa-b6f4-380589e587a8",
+                successImg: "https://github.com/user-attachments/assets/483ec9ef-9e07-4a0b-9946-42409da894eb", // 성공 시 나올 이미지
+                failImg: "https://github.com/user-attachments/assets/2ace67fa-3937-47f6-96d2-adc971d7964c",       // 실패 시 나올 이미지
                 answer: "B", 
                 feedback: "People stand on the right to let those in a hurry pass on the left side." 
             },
@@ -608,7 +611,7 @@
             document.getElementById(id).classList.add('active-screen');
         }
 
-        const SHARE_URL = "https://sunny-cat-7f7440.netlify.app/";
+        const SHARE_URL = "https://peaceful-druid-79f50c.netlify.app/";
 
         function copyGameLink(btn) {
             const dummy = document.createElement("textarea");
