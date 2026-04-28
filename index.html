@@ -265,12 +265,10 @@
         <!-- 4. 게임 오버 화면 -->
         <section id="game-over-screen" class="screen bg-[#1a110a]" onclick="location.reload()">
             <div class="media-layer opacity-60">
-                <!-- 배경 이미지 공간 -->
-                <img src="gameover_bg.jpg" alt="Game Over Background" onerror="this.style.display='none'">
+                <img src="https://github.com/user-attachments/assets/2a209d46-9efc-4a04-9fa1-461a15b742f2" alt="Game Over Background" onerror="this.style.display='none'">
                 <div class="media-placeholder" style="background: #1a110a;"></div>
             </div>
             <div class="feedback-content h-full flex flex-col">
-                <!-- 상단 텍스트 -->
                 <div class="mt-10 mb-2 text-center w-full z-20">
                     <h2 class="pixel-font game-over-title !mb-2">GAME OVER</h2>
                     <p class="text-white opacity-70 font-bold px-10 text-[14px]">
@@ -278,12 +276,9 @@
                     </p>
                 </div>
                 
-                <!-- 중앙 유연한 공간 (미션 성공 화면의 배지 영역에 대응) -->
                 <div class="flex-1"></div>
 
-                <!-- 가이드 + 버튼 그룹 (하단 버튼을 약 버튼 2개 높이만큼 내리기 위해 mb-4로 조정) -->
                 <div class="flex flex-col items-center mb-4 w-full z-20" onclick="event.stopPropagation()">
-                    <!-- TAP 가이드 (버튼 바로 위 배치) -->
                     <div class="tap-guide blink mb-6">TAP ANYWHERE TO RETRY</div>
                     
                     <div class="grid gap-3 w-full max-w-xs mx-auto">
@@ -298,25 +293,20 @@
         <!-- 5. 결과 화면 -->
         <section id="result-screen" class="screen p-6 bg-[#FDF5E6]" style="cursor: default;">
             <div class="text-center w-full flex flex-col h-full px-4 overflow-y-auto">
-                <!-- 상단 섹션 -->
                 <div class="mt-10 mb-2">
                     <div class="pixel-font text-[10px] text-[#FF4500] mb-2 uppercase tracking-tighter">Mission Terminated Successfully</div>
                     <h2 class="text-xl font-black text-slate-800">Your Final K-Grade</h2>
                 </div>
 
-                <!-- 배지 영역 -->
                 <div id="badge-area" class="flex-1 flex items-center justify-center min-h-[160px]">
                     <img id="result-badge" src="" alt="Badge" class="w-44 h-44 object-contain mx-auto" style="display:none;">
                 </div>
 
-                <!-- 텍스트 박스 + 버튼 그룹 -->
                 <div class="flex flex-col items-center mb-28">
-                    <!-- 결과 설명 박스 -->
                     <div class="bg-white border-4 border-[#8B4513] p-5 mb-6 text-left rounded-lg shadow-inner w-full max-w-sm mx-auto">
                         <p id="result-desc" class="text-[14px] leading-relaxed text-slate-700 font-bold text-center"></p>
                     </div>
 
-                    <!-- 하단 버튼 영역 -->
                     <div class="grid gap-3 w-full max-w-xs mx-auto">
                         <button onclick="location.reload()" class="pixel-btn-simple">Retry Mission</button>
                         <button onclick="copyGameLink(this)" class="pixel-btn-simple !bg-white !text-blue-600 !border-blue-600">Copy Result Link 🔗</button>
@@ -330,87 +320,59 @@
     <script>
         const quizData = [
             { 
-                icon: "🍲", video: "ail.mp4", 
-                introText: "I'm here to eat 'Pork Back-bone Stew'! How do I order?", 
-                a: "Press the bell on the table", b: "Look at the staff", 
-                imgA: "bell_image.jpg", imgB: "staff_image.jpg",
-                answer: "A", 
-                feedback: "Most restaurants have a call bell on the table. Press it to get quick attention from the staff!" 
-            },
-            { 
-                icon: "🙇", video: "ail.mp4", 
-                introText: "The owner welcomes me warmly. How should I greet them in return?", 
-                a: "Wave my hand and say 'Hi!'", b: "Give a slight bow with my head and upper body", 
-                imgA: "wave_hand.jpg", imgB: "bow_head.jpg",
+                icon: "✍️", video: "ail.mp4", 
+                introText: "I just checked into my hotel, and they handed me one of those multi-color pens to sign some papers. Now I’m wondering... which color should I even use?", 
+                a: "Use red ink.", b: "Use black ink.", 
+                imgA: "https://github.com/user-attachments/assets/929900d1-2f44-4d34-80c5-212c8ab2b088", 
+                imgB: "https://github.com/user-attachments/assets/5883a1ee-0a7e-4dff-ae70-0cc1510b0d3b",
                 answer: "B", 
-                feedback: "Giving a 'slight bow' is the most natural way to greet store owners, staff, or elders." 
+                successImg: "https://github.com/user-attachments/assets/11756f55-bf00-4ba5-a7c9-7c1b29a7ae5f", 
+                failImg: "https://github.com/user-attachments/assets/9afebf0f-5c9e-4e1f-9cf8-025228dca14b",
+                feedback: "Never write names in red. It’s an ancient taboo linked to death. Use black or blue ink!" 
             },
             { 
-                icon: "🥢", video: "ail.mp4", 
-                introText: "Food is served, but there are no utensils. How should I get them?", 
-                a: "Call the staff loudly to bring some", b: "Open the drawer under the table", 
-                imgA: "call_staff.jpg", imgB: "table_drawer.jpg",
+                icon: "🥢", video: "https://github.com/user-attachments/assets/56c1c5da-2128-44b7-ac6c-b1f50ca4607b", 
+                introText: "I go to a restaurant for a meal. All the food has been served, but there are no utensils. How should I get them?", 
+                a: "Call the staff loudly and ask them to bring some.", b: "Open the drawer under the table and take them out.", 
+                imgA: "https://github.com/user-attachments/assets/973a7277-1c7a-48b5-9f1c-a15ce10be435", 
+                imgB: "https://github.com/user-attachments/assets/6201f308-58dd-4d34-b6be-0800e71dedb1",
                 answer: "B", 
-                feedback: "It is an unspoken rule to set out utensils from the table drawer as soon as you sit down." 
-            },
-            { 
-                icon: "🚇", video: "https://github.com/user-attachments/assets/c8b2bf4c-0fe5-4054-bb9f-5994d1f23dad", 
-                introText: "Taking the subway. The seats are different colors. Where should I sit?", 
-                a: "Pink seats", b: "Blue seats", 
-                imgA: "https://github.com/user-attachments/assets/0fc3c1f4-88dc-4d85-8c82-fab6a3f41a73", imgB: "https://github.com/user-attachments/assets/33337c25-dbdd-4afa-b6f4-380589e587a8",
-                answer: "B", 
-                feedback: "Pink seats are for pregnant women. Even if empty, it’s polite to leave them for those in need." 
-            },
-            { 
-                icon: "🤲", video: "ail.mp4", 
-                introText: "I am handing an object to someone older than me. What is the etiquette?", 
-                a: "Hand it using both hands", b: "Hand it using one hand", 
-                imgA: "two_hands.jpg", imgB: "one_hand.jpg",
-                answer: "A", 
-                feedback: "It is basic etiquette in Korea to use both hands when handing something to an elder." 
-            },
-            { 
-                icon: "💸", video: "ail.mp4", 
-                introText: "I enjoyed the delicious food. How should I show my gratitude?", 
-                a: "Express my gratitude verbally", b: "Leave a tip", 
-                imgA: "thank_you.jpg", imgB: "tip_money.jpg",
-                answer: "A", 
-                feedback: "There is no tipping culture in Korea. Simply saying 'Thank you' is perfectly enough." 
-            },
-            { 
-                icon: "📱", video: "최종 질문.mp4", 
-                introText: "I got to the cafe, it's almost full and I have so much luggage. How do I grab a seat?", 
-                a: "Carry all bags to the counter to order first", b: "Leave my phone on an empty table to save a seat", 
-                imgA: "luggage_counter.jpg", imgB: "phone_on_table.jpg",
-                answer: "B", failImg: "fail_1.jpg.jpg", 
-                feedback: "Leaving bags or phones to save a seat is common and safe in Korea. It’s a culture of mutual trust!" 
-            },
-            { 
-                icon: "💳", video: "ail.mp4", 
-                introText: "Waiting in a long line, my turn is coming up soon. What should I prepare?", 
-                a: "Make small talk with the cashier", b: "Have your card or cash ready in advance", 
-                imgA: "small_talk.jpg", imgB: "card_ready.jpg",
-                answer: "B", 
-                feedback: "It is not customary to make small talk with strangers. Pay quickly and be on your way." 
+                successImg: "https://github.com/user-attachments/assets/f8c7ee92-b095-4db5-b15e-2dd64c6ba35b", 
+                failImg: "https://github.com/user-attachments/assets/d77b6717-de41-429b-838e-827f31dfe9b1",
+                feedback: "In Korea, it is almost an unspoken rule to set out the utensils and water as soon as everyone sits down. Be careful, or you might come across as clueless!" 
             },
             { 
                 icon: "🏃", video: "https://github.com/user-attachments/assets/c8b2bf4c-0fe5-4054-bb9f-5994d1f23dad", 
-                introText: "Using the escalator in a busy subway station.", 
-                a: "Line up on the left", b: "Line up on the right", 
+                introText: "Where should I stand when taking an escalator?", 
+                a: "Line up on the left.", b: "Line up on the right.", 
                 imgA: "https://github.com/user-attachments/assets/0fc3c1f4-88dc-4d85-8c82-fab6a3f41a73", 
                 imgB: "https://github.com/user-attachments/assets/33337c25-dbdd-4afa-b6f4-380589e587a8",
-                successImg: "https://github.com/user-attachments/assets/483ec9ef-9e07-4a0b-9946-42409da894eb", // 성공 시 나올 이미지
-                failImg: "https://github.com/user-attachments/assets/2ace67fa-3937-47f6-96d2-adc971d7964c",       // 실패 시 나올 이미지
                 answer: "B", 
-                feedback: "People stand on the right to let those in a hurry pass on the left side." 
+                successImg: "https://github.com/user-attachments/assets/483ec9ef-9e07-4a0b-9946-42409da894eb", 
+                failImg: "https://github.com/user-attachments/assets/2ace67fa-3937-47f6-96d2-adc971d7964c",
+                feedback: "People stand on the right side to ride up slowly, keeping the left side clear for those who are in a hurry and want to walk up." 
             },
             { 
-                icon: "✍️", video: "ail.mp4", 
-                introText: "Checking into my hotel, they handed me a multi-color pen to sign papers.", 
-                a: "Use black ink", b: "Use red ink", 
-                imgA: "black_pen.jpg", imgB: "red_pen.jpg",
+                icon: "💸", video: "https://github.com/user-attachments/assets/dca527cd-8e6f-4050-bb69-b92a666ad661", 
+                introText: "I enjoyed delicious food and friendly service at a restaurant. What should I do?", 
+                a: "Express my gratitude verbally.", b: "Leave a tip.", 
+                imgA: "https://github.com/user-attachments/assets/8fff6f87-7cfc-4a37-a354-f603da1c64c8", 
+                imgB: "https://github.com/user-attachments/assets/a0e2f28e-4401-4c56-b3ac-0d099f3f0aaf",
                 answer: "A", 
-                feedback: "Never write names in red. It’s an ancient taboo linked to death. Use black or blue ink!" 
+                successImg: "https://github.com/user-attachments/assets/e73d0232-8dc2-4f58-83c4-1924e1c106aa", 
+                failImg: "https://github.com/user-attachments/assets/fff280e0-5f18-4708-b64a-560a5c24eda9",
+                feedback: "There is no tipping culture in Korea. Simply saying 'Thank you' is perfectly enough." 
+            },
+            { 
+                icon: "🙇", video: "https://github.com/user-attachments/assets/550ac587-18c5-40cb-bb1f-7477c6810a49", 
+                introText: "I walk into a local shop or a restaurant, and the owner welcomes me. How should I greet them in return?", 
+                a: "Wave my hand and say 'Hi!'.", b: "Give a bow with my head and upper body.", 
+                imgA: "https://github.com/user-attachments/assets/afe9ecb4-af61-4f39-af90-ef45cd170388", 
+                imgB: "https://github.com/user-attachments/assets/02aba1e3-30fe-4a00-9a35-2cb70c2ce20e",
+                answer: "B", 
+                successImg: "https://github.com/user-attachments/assets/c73c0ef3-b2a6-4b7e-85c5-84c528e667ab", 
+                failImg: "https://github.com/user-attachments/assets/64cd1db1-4211-4f93-acb5-5c1f7748a423",
+                feedback: "In Korea, giving a 'slight bow' is the most natural and polite way to greet store owners, staff, or elders you don't know well." 
             }
         ];
 
@@ -508,32 +470,31 @@
             
             showScreen('feedback-screen');
             
-            if (isCorrect) {
-                score++;
-                feedbackTitle.innerText = "SUCCESS";
-                feedbackTitle.style.color = "var(--success-green)";
-                feedbackPlaceholder.innerHTML = '';
-                feedbackPlaceholder.style.display = 'none';
-                feedbackBg.style.display = 'none';
-            } else {
-                lives--;
-                feedbackTitle.innerText = "FAILED";
-                feedbackTitle.style.color = "var(--point-red)";
-                
-                if (data.failImg) {
-                    feedbackBg.src = data.failImg;
+            const showFeedbackImage = (imgSrc) => {
+                if (imgSrc) {
+                    feedbackBg.src = imgSrc;
                     feedbackBg.style.display = 'block';
                     feedbackPlaceholder.style.display = 'none';
                     feedbackBg.onerror = () => {
                         feedbackBg.style.display = 'none';
                         feedbackPlaceholder.style.display = 'none';
-                        feedbackPlaceholder.innerHTML = '';
                     };
                 } else {
-                    feedbackPlaceholder.innerHTML = '';
-                    feedbackPlaceholder.style.display = 'none';
                     feedbackBg.style.display = 'none';
+                    feedbackPlaceholder.style.display = 'none';
                 }
+            };
+
+            if (isCorrect) {
+                score++;
+                feedbackTitle.innerText = "SUCCESS";
+                feedbackTitle.style.color = "var(--success-green)";
+                showFeedbackImage(data.successImg);
+            } else {
+                lives--;
+                feedbackTitle.innerText = "FAILED";
+                feedbackTitle.style.color = "var(--point-red)";
+                showFeedbackImage(data.failImg);
             }
             
             desc.innerText = data.feedback;
@@ -560,26 +521,26 @@
             const resultDesc = document.getElementById('result-desc');
             const resultBadge = document.getElementById('result-badge');
             
-            let rank = "K-Newbie", msg = "You're getting there! Keep learning the local ways.", badgeSrc = "";
+            let rank = "K-Newbie", msg = "You're getting there! Keep learning the local ways.", badgeSrc = "https://github.com/user-attachments/assets/68155219-447a-45fd-8198-bb4c84edadb6";
             
             if (score === 5) { 
                 rank = "Honorary Korean"; 
                 msg = "Perfect! You are officially an Honorary Korean. You know the rules better than locals!"; 
-                badgeSrc = "badge_5.png"; 
+                badgeSrc = "https://github.com/user-attachments/assets/f317e564-9536-4c83-9c69-423c72fe2a62"; 
             } else if (score === 4) { 
                 rank = "Korean at Heart"; 
                 msg = "Amazing! You truly have the soul of a Korean. Your understanding is top-tier!"; 
-                badgeSrc = "badge_4.png"; 
+                badgeSrc = "https://github.com/user-attachments/assets/68155219-447a-45fd-8198-bb4c84edadb6"; 
             } else if (score === 3) { 
                 rank = "Pro Vibe Reader"; 
                 msg = "Impressive! Your 'Nunchi' (vibe reading) is on another level. You'll do great!"; 
-                badgeSrc = "badge_3.png"; 
+                badgeSrc = "https://github.com/user-attachments/assets/68155219-447a-45fd-8198-bb4c84edadb6"; 
             } else if (score >= 2) {
                 rank = "K-Explorer";
                 msg = "Great Job! You have a solid grasp of Korean culture. Enjoy your trip!";
-                badgeSrc = "badge_2.png";
+                badgeSrc = "https://github.com/user-attachments/assets/68155219-447a-45fd-8198-bb4c84edadb6";
             } else {
-                badgeSrc = "badge_1.png";
+                badgeSrc = "https://github.com/user-attachments/assets/68155219-447a-45fd-8198-bb4c84edadb6";
             }
             
             finalRank = rank; 
