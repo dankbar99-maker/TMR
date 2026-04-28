@@ -58,19 +58,16 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 배경 및 미디어 레이어 수정 */
         .media-layer {
             width: 100%; height: 100%; position: absolute; top: 0; left: 0;
             background: #2c1e14; overflow: hidden;
         }
         
-        /* 미디어 요소들이 서로 겹치지 않고 레이어 안에서 절대 위치를 잡도록 수정 */
         .media-layer video, .media-layer img { 
             width: 100%; height: 100%; object-fit: cover; z-index: 5; 
             position: absolute; top: 0; left: 0;
         }
 
-        /* 시작 화면 배경 이미지는 비율 무시하고 꽉 채우기 (짤림 방지) */
         #start-screen .media-layer video, 
         #start-screen .media-layer img {
             object-fit: fill;
@@ -83,14 +80,12 @@
             position: absolute; top: 0; left: 0;
         }
 
-        /* 대화창 */
         .dialogue-container {
             position: absolute; bottom: 130px; left: 50%; transform: translateX(-50%);
             width: 92%; background: white; border: 4px solid var(--main-brown);
             padding: 15px; z-index: 20; border-radius: 8px; box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
         }
 
-        /* 선택지 오버레이 */
         .choice-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 30; display: none;
@@ -186,9 +181,8 @@
         <!-- 1. 시작 화면 -->
         <section id="start-screen" class="screen active-screen" onclick="startGame()">
             <div class="media-layer">
-                <!-- 이미지/영상 모두 화면 전체에 꽉 차도록 수정됨 -->
                 <video autoplay loop muted playsinline id="intro-video">
-                    <source src="https://github.com/user-attachments/assets/053a0ff2-1790-4924-aefc-ccda777dd5b1" type="video/mp4">
+                    <source src="오프닝(수정)_영상1.mp4" type="video/mp4">
                 </video>
                 <div class="media-placeholder pixel-font" id="intro-placeholder">
                     <div class="text-4xl mb-4">🇰🇷</div>
@@ -215,17 +209,21 @@
 
             <div id="choice-area" class="choice-overlay" onclick="event.stopPropagation()">
                 <div class="pixel-font text-white text-[10px] mb-6 tracking-widest text-center w-full">▼ SELECT YOUR ACTION</div>
+                
+                <!-- 선택지 A -->
                 <button onclick="checkAnswer('A')" class="choice-btn">
                     <div class="choice-img-container">
-                        <img id="img-a" src="image (3).jpg" alt="Option A" onerror="this.style.display='none'">
-                        <div class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold">IMAGE</div>
+                        <img id="img-a" src="" alt="Option A" onerror="this.parentElement.querySelector('.img-error-placeholder').style.display='flex'; this.style.display='none';">
+                        <div class="img-error-placeholder absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
                     </div>
                     <div class="flex items-center px-2 py-1"><span class="num-box">1</span><span id="text-a" class="font-bold text-[15px] text-slate-800 leading-tight"></span></div>
                 </button>
+
+                <!-- 선택지 B -->
                 <button onclick="checkAnswer('B')" class="choice-btn">
                     <div class="choice-img-container">
-                        <img id="img-b" src="image (3).jpg" alt="Option B" onerror="this.style.display='none'">
-                        <div class="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold">IMAGE</div>
+                        <img id="img-b" src="" alt="Option B" onerror="this.parentElement.querySelector('.img-error-placeholder').style.display='flex'; this.style.display='none';">
+                        <div class="img-error-placeholder absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
                     </div>
                     <div class="flex items-center px-2 py-1"><span class="num-box">2</span><span id="text-b" class="font-bold text-[15px] text-slate-800 leading-tight"></span></div>
                 </button>
@@ -309,16 +307,86 @@
 
     <script>
         const quizData = [
-            { icon: "🍲", video: "ail.mp4", introText: "I'm here to eat 'Pork Back-bone Stew'! How do I order?", a: "Press the bell on the table", b: "Look at the staff", answer: "A", feedback: "Most restaurants have a call bell on the table. Press it to get quick attention from the staff!" },
-            { icon: "🙇", video: "ail.mp4", introText: "The owner welcomes me warmly. How should I greet them in return?", a: "Wave my hand and say 'Hi!'", b: "Give a slight bow with my head and upper body", answer: "B", feedback: "Giving a 'slight bow' is the most natural way to greet store owners, staff, or elders." },
-            { icon: "🥢", video: "ail.mp4", introText: "Food is served, but there are no utensils. How should I get them?", a: "Call the staff loudly to bring some", b: "Open the drawer under the table", answer: "B", feedback: "It is an unspoken rule to set out utensils from the table drawer as soon as you sit down." },
-            { icon: "🚇", video: "ail.mp4", introText: "Taking the subway. The seats are different colors. Where should I sit?", a: "Pink seats", b: "Blue seats", answer: "B", feedback: "Pink seats are for pregnant women. Even if empty, it’s polite to leave them for those in need." },
-            { icon: "🤲", video: "ail.mp4", introText: "I am handing an object to someone older than me. What is the etiquette?", a: "Hand it using both hands", b: "Hand it using one hand", answer: "A", feedback: "It is basic etiquette in Korea to use both hands when handing something to an elder." },
-            { icon: "💸", video: "ail.mp4", introText: "I enjoyed the delicious food. How should I show my gratitude?", a: "Express my gratitude verbally", b: "Leave a tip", answer: "A", feedback: "There is no tipping culture in Korea. Simply saying 'Thank you' is perfectly enough." },
-            { icon: "📱", video: "최종 질문.mp4", introText: "I got to the cafe, it's almost full and I have so much luggage. How do I grab a seat?", a: "Carry all bags to the counter to order first", b: "Leave my phone on an empty table to save a seat", answer: "B", failImg: "fail_1.jpg.jpg", feedback: "Leaving bags or phones to save a seat is common and safe in Korea. It’s a culture of mutual trust!" },
-            { icon: "💳", video: "ail.mp4", introText: "Waiting in a long line, my turn is coming up soon. What should I prepare?", a: "Make small talk with the cashier", b: "Have your card or cash ready in advance", answer: "B", feedback: "It is not customary to make small talk with strangers. Pay quickly and be on your way." },
-            { icon: "🏃", video: "ail.mp4", introText: "Using the escalator in a busy subway station.", a: "Line up on the left", b: "Line up on the right", answer: "B", feedback: "People stand on the right to let those in a hurry pass on the left side." },
-            { icon: "✍️", video: "ail.mp4", introText: "Checking into my hotel, they handed me a multi-color pen to sign papers.", a: "Use black ink", b: "Use red ink", answer: "A", feedback: "Never write names in red. It’s an ancient taboo linked to death. Use black or blue ink!" }
+            { 
+                icon: "🍲", video: "ail.mp4", 
+                introText: "I'm here to eat 'Pork Back-bone Stew'! How do I order?", 
+                a: "Press the bell on the table", b: "Look at the staff", 
+                imgA: "bell_image.jpg", imgB: "staff_image.jpg",
+                answer: "A", 
+                feedback: "Most restaurants have a call bell on the table. Press it to get quick attention from the staff!" 
+            },
+            { 
+                icon: "🙇", video: "ail.mp4", 
+                introText: "The owner welcomes me warmly. How should I greet them in return?", 
+                a: "Wave my hand and say 'Hi!'", b: "Give a slight bow with my head and upper body", 
+                imgA: "wave_hand.jpg", imgB: "bow_head.jpg",
+                answer: "B", 
+                feedback: "Giving a 'slight bow' is the most natural way to greet store owners, staff, or elders." 
+            },
+            { 
+                icon: "🥢", video: "ail.mp4", 
+                introText: "Food is served, but there are no utensils. How should I get them?", 
+                a: "Call the staff loudly to bring some", b: "Open the drawer under the table", 
+                imgA: "call_staff.jpg", imgB: "table_drawer.jpg",
+                answer: "B", 
+                feedback: "It is an unspoken rule to set out utensils from the table drawer as soon as you sit down." 
+            },
+            { 
+                icon: "🚇", video: "ail.mp4", 
+                introText: "Taking the subway. The seats are different colors. Where should I sit?", 
+                a: "Pink seats", b: "Blue seats", 
+                imgA: "pink_seat.jpg", imgB: "blue_seat.jpg",
+                answer: "B", 
+                feedback: "Pink seats are for pregnant women. Even if empty, it’s polite to leave them for those in need." 
+            },
+            { 
+                icon: "🤲", video: "ail.mp4", 
+                introText: "I am handing an object to someone older than me. What is the etiquette?", 
+                a: "Hand it using both hands", b: "Hand it using one hand", 
+                imgA: "two_hands.jpg", imgB: "one_hand.jpg",
+                answer: "A", 
+                feedback: "It is basic etiquette in Korea to use both hands when handing something to an elder." 
+            },
+            { 
+                icon: "💸", video: "ail.mp4", 
+                introText: "I enjoyed the delicious food. How should I show my gratitude?", 
+                a: "Express my gratitude verbally", b: "Leave a tip", 
+                imgA: "thank_you.jpg", imgB: "tip_money.jpg",
+                answer: "A", 
+                feedback: "There is no tipping culture in Korea. Simply saying 'Thank you' is perfectly enough." 
+            },
+            { 
+                icon: "📱", video: "최종 질문.mp4", 
+                introText: "I got to the cafe, it's almost full and I have so much luggage. How do I grab a seat?", 
+                a: "Carry all bags to the counter to order first", b: "Leave my phone on an empty table to save a seat", 
+                imgA: "luggage_counter.jpg", imgB: "phone_on_table.jpg",
+                answer: "B", failImg: "fail_1.jpg.jpg", 
+                feedback: "Leaving bags or phones to save a seat is common and safe in Korea. It’s a culture of mutual trust!" 
+            },
+            { 
+                icon: "💳", video: "ail.mp4", 
+                introText: "Waiting in a long line, my turn is coming up soon. What should I prepare?", 
+                a: "Make small talk with the cashier", b: "Have your card or cash ready in advance", 
+                imgA: "small_talk.jpg", imgB: "card_ready.jpg",
+                answer: "B", 
+                feedback: "It is not customary to make small talk with strangers. Pay quickly and be on your way." 
+            },
+            { 
+                icon: "🏃", video: "ail.mp4", 
+                introText: "Using the escalator in a busy subway station.", 
+                a: "Line up on the left", b: "Line up on the right", 
+                imgA: "stand_left.jpg", imgB: "stand_right.jpg",
+                answer: "B", 
+                feedback: "People stand on the right to let those in a hurry pass on the left side." 
+            },
+            { 
+                icon: "✍️", video: "ail.mp4", 
+                introText: "Checking into my hotel, they handed me a multi-color pen to sign papers.", 
+                a: "Use black ink", b: "Use red ink", 
+                imgA: "black_pen.jpg", imgB: "red_pen.jpg",
+                answer: "A", 
+                feedback: "Never write names in red. It’s an ancient taboo linked to death. Use black or blue ink!" 
+            }
         ];
 
         let currentIdx = 0, lives = 3, score = 0;
@@ -377,8 +445,32 @@
         function showChoices() {
             isIntroState = false;
             const data = quizData[currentIdx];
+            
             document.getElementById('text-a').innerText = data.a;
             document.getElementById('text-b').innerText = data.b;
+
+            const imgA = document.getElementById('img-a');
+            const imgB = document.getElementById('img-b');
+            const placeholders = document.querySelectorAll('.img-error-placeholder');
+            
+            placeholders.forEach(p => p.style.display = 'none');
+            imgA.style.display = 'block';
+            imgB.style.display = 'block';
+
+            if (data.imgA) {
+                imgA.src = data.imgA;
+            } else {
+                imgA.style.display = 'none';
+                imgA.parentElement.querySelector('.img-error-placeholder').style.display = 'flex';
+            }
+
+            if (data.imgB) {
+                imgB.src = data.imgB;
+            } else {
+                imgB.style.display = 'none';
+                imgB.parentElement.querySelector('.img-error-placeholder').style.display = 'flex';
+            }
+
             choiceArea.style.display = 'flex';
             quizTapGuide.style.display = 'none';
             dialogue.innerText = "Select your action:";
@@ -479,11 +571,14 @@
             document.getElementById(id).classList.add('active-screen');
         }
 
+        // --- 공유용 URL 설정 ---
+        const SHARE_URL = "https://sunny-cat-7f7440.netlify.app/";
+
         function copyGameLink(btn) {
-            const url = window.location.href;
             const dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
-            dummy.value = `I scored ${score}/10 on K-EARTH Survival Guide! 🇰🇷🎮 Can you beat my K-IQ? \n${url}`;
+            // window.location.href 대신 고정 주소 사용
+            dummy.value = `I scored ${score}/10 on K-EARTH Survival Guide! 🇰🇷🎮 Can you beat my K-IQ? \n${SHARE_URL}`;
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);
@@ -500,18 +595,17 @@
         async function shareToSocial() {
             const rank = document.getElementById('rank-display').innerText || 'K-Newbie';
             const text = `I got Rank "${rank}" on the K-EARTH Survival Guide! 🇰🇷🎮 Score: ${score}/10. Can you survive in Korea?`;
-            const url = window.location.href;
             
             if (navigator.share) {
                 try {
                     await navigator.share({
                         title: 'K-EARTH Survival Guide',
                         text: text,
-                        url: url,
+                        url: SHARE_URL, // 고정 주소 사용
                     });
                 } catch (err) { }
             } else {
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SHARE_URL)}`, '_blank');
             }
         }
 
