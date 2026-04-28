@@ -58,20 +58,29 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 배경 및 미디어 레이어 */
+        /* 배경 및 미디어 레이어 수정 */
         .media-layer {
             width: 100%; height: 100%; position: absolute; top: 0; left: 0;
-            background: #2c1e14; display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+            background: #2c1e14; overflow: hidden;
         }
+        
+        /* 미디어 요소들이 서로 겹치지 않고 레이어 안에서 절대 위치를 잡도록 수정 */
         .media-layer video, .media-layer img { 
             width: 100%; height: 100%; object-fit: cover; z-index: 5; 
+            position: absolute; top: 0; left: 0;
+        }
+
+        /* 시작 화면 배경 이미지는 비율 무시하고 꽉 채우기 (짤림 방지) */
+        #start-screen .media-layer video, 
+        #start-screen .media-layer img {
+            object-fit: fill;
         }
         
         .media-placeholder {
             width: 100%; height: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center; background: #3d2b1f;
             color: #8b6d5c; text-align: center; padding: 20px;
+            position: absolute; top: 0; left: 0;
         }
 
         /* 대화창 */
@@ -177,8 +186,9 @@
         <!-- 1. 시작 화면 -->
         <section id="start-screen" class="screen active-screen" onclick="startGame()">
             <div class="media-layer">
+                <!-- 이미지/영상 모두 화면 전체에 꽉 차도록 수정됨 -->
                 <video autoplay loop muted playsinline id="intro-video">
-                    <source src="https://github.com/user-attachments/assets/053a0ff2-1790-4924-aefc-ccda777dd5b1" type="video/mp4">
+                    <source src="오프닝(수정)_영상1.mp4" type="video/mp4">
                 </video>
                 <div class="media-placeholder pixel-font" id="intro-placeholder">
                     <div class="text-4xl mb-4">🇰🇷</div>
@@ -252,11 +262,10 @@
             </div>
         </section>
 
-        <!-- 4. 게임 오버 화면 - 배경 "MISSION FAILED" 텍스트 제거 -->
+        <!-- 4. 게임 오버 화면 -->
         <section id="game-over-screen" class="screen bg-[#1a110a]" onclick="location.reload()">
             <div class="media-layer opacity-40">
                 <img src="gameover.jpg.jpg" alt="Game Over" onerror="this.style.display='none'">
-                <!-- 배경 텍스트 가림 문제로 인해 문구 제거 -->
                 <div class="media-placeholder"></div>
             </div>
             <div class="feedback-content justify-center px-6">
