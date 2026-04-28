@@ -58,7 +58,6 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 배경 미디어 레이어 */
         .media-layer {
             width: 100%; height: 100%; position: absolute; top: 0; left: 0;
             background: #2c1e14; overflow: hidden;
@@ -69,7 +68,10 @@
             position: absolute; top: 0; left: 0;
         }
 
-        #start-screen .media-layer video { object-fit: fill; }
+        #start-screen .media-layer video, 
+        #start-screen .media-layer img {
+            object-fit: fill;
+        }
         
         .media-placeholder {
             width: 100%; height: 100%; display: flex; flex-direction: column;
@@ -78,14 +80,12 @@
             position: absolute; top: 0; left: 0;
         }
 
-        /* 대화창 */
         .dialogue-container {
             position: absolute; bottom: 130px; left: 50%; transform: translateX(-50%);
             width: 92%; background: white; border: 4px solid var(--main-brown);
             padding: 15px; z-index: 20; border-radius: 8px; box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
         }
 
-        /* 선택지 오버레이 */
         .choice-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 30; display: none;
@@ -133,13 +133,15 @@
         .feedback-content {
             position: relative; z-index: 10; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: space-between;
-            align-items: center; padding: 60px 20px;
+            align-items: center; 
+            padding: 60px 20px 140px 20px; 
         }
         
         .desc-box {
             background-color: rgba(255, 255, 255, 0.95); border: 4px solid var(--main-brown);
             padding: 20px; box-shadow: 8px 8px 0px rgba(0,0,0,0.2); width: 100%; max-width: 380px;
             border-radius: 8px;
+            margin-top: auto;
         }
 
         .game-over-title {
@@ -147,6 +149,7 @@
             text-align: center; margin-bottom: 20px; animation: pulse 1s infinite;
             line-height: 1;
         }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         
         .blink { animation: blinker 1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
@@ -165,7 +168,10 @@
         }
 
         #start-screen .tap-guide {
-            position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -177,9 +183,8 @@
         <!-- 1. 시작 화면 -->
         <section id="start-screen" class="screen active-screen" onclick="startGame()">
             <div class="media-layer">
-                <!-- 오프닝 영상 깃허브 링크로 교체 가능 -->
                 <video autoplay loop muted playsinline id="intro-video">
-                    <source src="https://github.com/user-attachments/assets/053a0ff2-1790-4924-aefc-ccda777dd5b1" type="video/mp4">
+                    <source src="https://drive.google.com/file/d/1jb8dhBi-Q8Kh-6-N8gm-nVEZWcVwIICl/view?usp=sharing" type="video/mp4">
                 </video>
                 <div class="media-placeholder pixel-font" id="intro-placeholder">
                     <div class="text-4xl mb-4">🇰🇷</div>
@@ -197,7 +202,6 @@
             <div class="heart-bar" id="lives-display"></div>
             
             <div class="media-layer">
-                <!-- 퀴즈 영상이 로드되는 곳 -->
                 <video id="quiz-video" muted playsinline style="display:none;"></video>
                 <div id="quiz-placeholder" class="media-placeholder">
                     <div id="quiz-icon" class="text-6xl mb-4">📍</div>
@@ -211,8 +215,8 @@
                 <!-- 선택지 A -->
                 <button onclick="checkAnswer('A')" class="choice-btn">
                     <div class="choice-img-container">
-                        <img id="img-a" src="" alt="Option A" onerror="this.parentElement.querySelector('.err-ui').style.display='flex'; this.style.display='none';">
-                        <div class="err-ui absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
+                        <img id="img-a" src="" alt="Option A" onerror="this.parentElement.querySelector('.img-error-placeholder').style.display='flex'; this.style.display='none';">
+                        <div class="img-error-placeholder absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
                     </div>
                     <div class="flex items-center px-2 py-1"><span class="num-box">1</span><span id="text-a" class="font-bold text-[15px] text-slate-800 leading-tight"></span></div>
                 </button>
@@ -220,8 +224,8 @@
                 <!-- 선택지 B -->
                 <button onclick="checkAnswer('B')" class="choice-btn">
                     <div class="choice-img-container">
-                        <img id="img-b" src="" alt="Option B" onerror="this.parentElement.querySelector('.err-ui').style.display='flex'; this.style.display='none';">
-                        <div class="err-ui absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
+                        <img id="img-b" src="" alt="Option B" onerror="this.parentElement.querySelector('.img-error-placeholder').style.display='flex'; this.style.display='none';">
+                        <div class="img-error-placeholder absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold" style="display:none;">IMAGE</div>
                     </div>
                     <div class="flex items-center px-2 py-1"><span class="num-box">2</span><span id="text-b" class="font-bold text-[15px] text-slate-800 leading-tight"></span></div>
                 </button>
@@ -229,7 +233,7 @@
 
             <div class="dialogue-container">
                 <div class="flex gap-4 items-center">
-                    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=K-Guide" class="portrait" alt="Guide">
+                    <img src="image (3).jpg" class="portrait" alt="Guide" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=K-Guide'">
                     <div class="flex-1"><p id="dialogue-text" class="text-[13px] font-bold leading-snug text-slate-700"></p></div>
                 </div>
                 <div class="absolute bottom-2 right-4 text-[#8B4513] text-[10px] blink">▼</div>
@@ -244,81 +248,172 @@
         <section id="feedback-screen" class="screen bg-black" onclick="toNext()">
             <div class="media-layer">
                 <img id="feedback-bg-img" src="" alt="Feedback BG" style="display:none;">
-                <div id="feedback-placeholder" class="media-placeholder" style="background: #1a1a1a;"></div>
+                <div id="feedback-placeholder" class="media-placeholder" style="background: #1a1a1a; display:none;"></div>
             </div>
             <div class="feedback-content">
                 <div class="flex flex-col items-center">
                     <h2 id="feedback-title" class="pixel-font drop-shadow-[0_4px_4px_rgba(0,0,0,1)] text-center mb-2" style="font-size: 2.5rem;"></h2>
                     <div class="tap-guide blink">TAP TO CONTINUE</div>
                 </div>
+                <!-- 하단에 배치될 설명 박스 -->
                 <div class="desc-box">
                     <p id="feedback-desc" class="text-[15px] text-slate-800 leading-relaxed font-bold text-center"></p>
                 </div>
             </div>
         </section>
 
-        <!-- 4. 게임 오버 / 결과 화면 (생략 가능하나 구조 유지를 위해 유지) -->
+        <!-- 4. 게임 오버 화면 -->
         <section id="game-over-screen" class="screen bg-[#1a110a]" onclick="location.reload()">
-            <div class="feedback-content justify-center px-6">
-                <h2 class="pixel-font game-over-title">GAME OVER</h2>
-                <div class="grid gap-3 w-full max-w-xs z-20" onclick="event.stopPropagation()">
-                    <button onclick="location.reload()" class="pixel-btn-simple !bg-[#FF0000] !text-white">RETRY MISSION</button>
-                    <button onclick="copyGameLink(this)" class="pixel-btn-simple">COPY SCORE 🔗</button>
+            <div class="media-layer opacity-60">
+                <!-- 배경 이미지 공간 -->
+                <img src="gameover_bg.jpg" alt="Game Over Background" onerror="this.style.display='none'">
+                <div class="media-placeholder" style="background: #1a110a;"></div>
+            </div>
+            <div class="feedback-content h-full flex flex-col">
+                <!-- 상단 텍스트 -->
+                <div class="mt-10 mb-2 text-center w-full z-20">
+                    <h2 class="pixel-font game-over-title !mb-2">GAME OVER</h2>
+                    <p class="text-white opacity-70 font-bold px-10 text-[14px]">
+                        You couldn't survive the cultural differences...
+                    </p>
                 </div>
-                <div class="tap-guide blink mt-10">TAP ANYWHERE TO RETRY</div>
+                
+                <!-- 중앙 유연한 공간 (미션 성공 화면의 배지 영역에 대응) -->
+                <div class="flex-1"></div>
+
+                <!-- 가이드 + 버튼 그룹 (하단 버튼을 약 버튼 2개 높이만큼 내리기 위해 mb-4로 조정) -->
+                <div class="flex flex-col items-center mb-4 w-full z-20" onclick="event.stopPropagation()">
+                    <!-- TAP 가이드 (버튼 바로 위 배치) -->
+                    <div class="tap-guide blink mb-6">TAP ANYWHERE TO RETRY</div>
+                    
+                    <div class="grid gap-3 w-full max-w-xs mx-auto">
+                        <button onclick="location.reload()" class="pixel-btn-simple !bg-[#FF0000] !text-white !border-black">RETRY MISSION</button>
+                        <button onclick="copyGameLink(this)" class="pixel-btn-simple !bg-white !text-slate-800 !border-slate-800">COPY SCORE 🔗</button>
+                        <button onclick="shareToSocial()" class="pixel-btn-simple !bg-[#FF4500] !text-white !border-black">SHARE ON SOCIAL MEDIA 📱</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="result-screen" class="screen p-6 justify-center items-center bg-[#FDF5E6]">
-            <div class="text-center w-full flex flex-col h-full justify-center items-center px-4 overflow-y-auto">
-                <h2 class="text-xl font-black text-slate-800 mb-2">Your Final K-Grade</h2>
-                <div id="rank-display" class="text-4xl font-black my-8 text-[#8B4513]"></div>
-                <div class="bg-white border-4 border-[#8B4513] p-5 mb-8 rounded-lg shadow-inner w-full">
-                    <p id="result-desc" class="text-[14px] font-bold text-center"></p>
+        <!-- 5. 결과 화면 -->
+        <section id="result-screen" class="screen p-6 bg-[#FDF5E6]" style="cursor: default;">
+            <div class="text-center w-full flex flex-col h-full px-4 overflow-y-auto">
+                <!-- 상단 섹션 -->
+                <div class="mt-10 mb-2">
+                    <div class="pixel-font text-[10px] text-[#FF4500] mb-2 uppercase tracking-tighter">Mission Terminated Successfully</div>
+                    <h2 class="text-xl font-black text-slate-800">Your Final K-Grade</h2>
                 </div>
-                <div class="grid gap-4 w-full max-w-xs">
-                    <button onclick="location.reload()" class="pixel-btn-simple">Retry Mission</button>
-                    <button onclick="copyGameLink(this)" class="pixel-btn-simple !bg-white !text-blue-600">Copy Result Link 🔗</button>
+
+                <!-- 배지 영역 -->
+                <div id="badge-area" class="flex-1 flex items-center justify-center min-h-[160px]">
+                    <img id="result-badge" src="" alt="Badge" class="w-44 h-44 object-contain mx-auto" style="display:none;">
+                </div>
+
+                <!-- 텍스트 박스 + 버튼 그룹 -->
+                <div class="flex flex-col items-center mb-28">
+                    <!-- 결과 설명 박스 -->
+                    <div class="bg-white border-4 border-[#8B4513] p-5 mb-6 text-left rounded-lg shadow-inner w-full max-w-sm mx-auto">
+                        <p id="result-desc" class="text-[14px] leading-relaxed text-slate-700 font-bold text-center"></p>
+                    </div>
+
+                    <!-- 하단 버튼 영역 -->
+                    <div class="grid gap-3 w-full max-w-xs mx-auto">
+                        <button onclick="location.reload()" class="pixel-btn-simple">Retry Mission</button>
+                        <button onclick="copyGameLink(this)" class="pixel-btn-simple !bg-white !text-blue-600 !border-blue-600">Copy Result Link 🔗</button>
+                        <button onclick="shareToSocial()" class="pixel-btn-simple !bg-[#FF4500] !text-white !border-black">Share on Social Media 📱</button>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        /**
-         * 💡 깃허브 관리 팁:
-         * 1. 깃허브 이슈/토론에 영상이나 이미지를 업로드합니다.
-         * 2. 생성된 주소를 아래 URL 항목에 붙여넣으세요.
-         */
         const quizData = [
             { 
-                icon: "🍲", 
-                videoUrl: "https://github.com/user-attachments/assets/8df8b6df-b065-43b4-b2e2-a5827f929dd1", // 예시: 깃허브 영상 주소
+                icon: "🍲", video: "ail.mp4", 
                 introText: "I'm here to eat 'Pork Back-bone Stew'! How do I order?", 
-                a: "Press the bell on the table", 
-                imgA: "https://github.com/user-attachments/assets/043d0539-fb9e-4aec-b9d0-0d7c3c38ab96", // 예시: 깃허브 이미지 주소
-                b: "Look at the staff", 
-                imgB: "https://github.com/user-attachments/assets/6c26382b-427f-485b-a551-caa0df15349c",
+                a: "Press the bell on the table", b: "Look at the staff", 
+                imgA: "bell_image.jpg", imgB: "staff_image.jpg",
                 answer: "A", 
                 feedback: "Most restaurants have a call bell on the table. Press it to get quick attention from the staff!" 
             },
-            // 추가 문제들을 같은 형식으로 작성하세요.
             { 
-                icon: "🙇", 
-                videoUrl: "https://github.com/user-attachments/assets/영상_주소",
-                introText: "The owner welcomes me warmly. How should I greet them?", 
-                a: "Wave my hand", 
-                imgA: "https://github.com/user-attachments/assets/이미지_주소",
-                b: "Give a slight bow", 
-                imgB: "https://github.com/user-attachments/assets/이미지_주소",
+                icon: "🙇", video: "ail.mp4", 
+                introText: "The owner welcomes me warmly. How should I greet them in return?", 
+                a: "Wave my hand and say 'Hi!'", b: "Give a slight bow with my head and upper body", 
+                imgA: "wave_hand.jpg", imgB: "bow_head.jpg",
                 answer: "B", 
-                feedback: "Giving a 'slight bow' is the most natural way to greet elders in Korea." 
+                feedback: "Giving a 'slight bow' is the most natural way to greet store owners, staff, or elders." 
+            },
+            { 
+                icon: "🥢", video: "ail.mp4", 
+                introText: "Food is served, but there are no utensils. How should I get them?", 
+                a: "Call the staff loudly to bring some", b: "Open the drawer under the table", 
+                imgA: "call_staff.jpg", imgB: "table_drawer.jpg",
+                answer: "B", 
+                feedback: "It is an unspoken rule to set out utensils from the table drawer as soon as you sit down." 
+            },
+            { 
+                icon: "🚇", video: "ail.mp4", 
+                introText: "Taking the subway. The seats are different colors. Where should I sit?", 
+                a: "Pink seats", b: "Blue seats", 
+                imgA: "pink_seat.jpg", imgB: "blue_seat.jpg",
+                answer: "B", 
+                feedback: "Pink seats are for pregnant women. Even if empty, it’s polite to leave them for those in need." 
+            },
+            { 
+                icon: "🤲", video: "ail.mp4", 
+                introText: "I am handing an object to someone older than me. What is the etiquette?", 
+                a: "Hand it using both hands", b: "Hand it using one hand", 
+                imgA: "two_hands.jpg", imgB: "one_hand.jpg",
+                answer: "A", 
+                feedback: "It is basic etiquette in Korea to use both hands when handing something to an elder." 
+            },
+            { 
+                icon: "💸", video: "ail.mp4", 
+                introText: "I enjoyed the delicious food. How should I show my gratitude?", 
+                a: "Express my gratitude verbally", b: "Leave a tip", 
+                imgA: "thank_you.jpg", imgB: "tip_money.jpg",
+                answer: "A", 
+                feedback: "There is no tipping culture in Korea. Simply saying 'Thank you' is perfectly enough." 
+            },
+            { 
+                icon: "📱", video: "최종 질문.mp4", 
+                introText: "I got to the cafe, it's almost full and I have so much luggage. How do I grab a seat?", 
+                a: "Carry all bags to the counter to order first", b: "Leave my phone on an empty table to save a seat", 
+                imgA: "luggage_counter.jpg", imgB: "phone_on_table.jpg",
+                answer: "B", failImg: "fail_1.jpg.jpg", 
+                feedback: "Leaving bags or phones to save a seat is common and safe in Korea. It’s a culture of mutual trust!" 
+            },
+            { 
+                icon: "💳", video: "ail.mp4", 
+                introText: "Waiting in a long line, my turn is coming up soon. What should I prepare?", 
+                a: "Make small talk with the cashier", b: "Have your card or cash ready in advance", 
+                imgA: "small_talk.jpg", imgB: "card_ready.jpg",
+                answer: "B", 
+                feedback: "It is not customary to make small talk with strangers. Pay quickly and be on your way." 
+            },
+            { 
+                icon: "🏃", video: "ail.mp4", 
+                introText: "Using the escalator in a busy subway station.", 
+                a: "Line up on the left", b: "Line up on the right", 
+                imgA: "stand_left.jpg", imgB: "stand_right.jpg",
+                answer: "B", 
+                feedback: "People stand on the right to let those in a hurry pass on the left side." 
+            },
+            { 
+                icon: "✍️", video: "ail.mp4", 
+                introText: "Checking into my hotel, they handed me a multi-color pen to sign papers.", 
+                a: "Use black ink", b: "Use red ink", 
+                imgA: "black_pen.jpg", imgB: "red_pen.jpg",
+                answer: "A", 
+                feedback: "Never write names in red. It’s an ancient taboo linked to death. Use black or blue ink!" 
             }
         ];
 
-        let currentIdx = 0, lives = 3, score = 0, isIntroState = false;
-        const SHARE_URL = "https://sunny-cat-7f7440.netlify.app/";
-
+        let currentIdx = 0, lives = 3, score = 0, finalRank = "K-Newbie";
+        let isIntroState = false;
+        
         const qVideo = document.getElementById('quiz-video');
         const qPlaceholder = document.getElementById('quiz-placeholder');
         const qIcon = document.getElementById('quiz-icon');
@@ -345,12 +440,11 @@
             feedbackPlaceholder.style.display = 'none';
             quizTapGuide.style.display = 'block';
             
-            // 영상 처리
-            if (data.videoUrl) {
-                qVideo.src = data.videoUrl;
+            if (data.video) {
+                qVideo.src = data.video;
                 qVideo.style.display = 'block';
                 qVideo.load();
-                qVideo.play().catch(() => {
+                qVideo.play().catch(e => {
                     qVideo.style.display = 'none';
                     qPlaceholder.style.display = 'flex';
                     qIcon.innerText = data.icon;
@@ -365,7 +459,9 @@
         }
 
         function handleGameplayTap() {
-            if (isIntroState) showChoices();
+            if (isIntroState) {
+                showChoices();
+            }
         }
 
         function showChoices() {
@@ -375,17 +471,27 @@
             document.getElementById('text-a').innerText = data.a;
             document.getElementById('text-b').innerText = data.b;
 
-            const updateImg = (elId, src) => {
-                const img = document.getElementById(elId);
-                const err = img.parentElement.querySelector('.err-ui');
-                err.style.display = 'none';
-                img.style.display = 'block';
-                if (src) img.src = src;
-                else { img.style.display = 'none'; err.style.display = 'flex'; }
-            };
+            const imgA = document.getElementById('img-a');
+            const imgB = document.getElementById('img-b');
+            const placeholders = document.querySelectorAll('.img-error-placeholder');
+            
+            placeholders.forEach(p => p.style.display = 'none');
+            imgA.style.display = 'block';
+            imgB.style.display = 'block';
 
-            updateImg('img-a', data.imgA);
-            updateImg('img-b', data.imgB);
+            if (data.imgA) {
+                imgA.src = data.imgA;
+            } else {
+                imgA.style.display = 'none';
+                imgA.parentElement.querySelector('.img-error-placeholder').style.display = 'flex';
+            }
+
+            if (data.imgB) {
+                imgB.src = data.imgB;
+            } else {
+                imgB.style.display = 'none';
+                imgB.parentElement.querySelector('.img-error-placeholder').style.display = 'flex';
+            }
 
             choiceArea.style.display = 'flex';
             quizTapGuide.style.display = 'none';
@@ -395,28 +501,48 @@
         function checkAnswer(choice) {
             const data = quizData[currentIdx];
             const isCorrect = choice === data.answer;
+            const desc = document.getElementById('feedback-desc');
+            
             showScreen('feedback-screen');
             
             if (isCorrect) {
                 score++;
                 feedbackTitle.innerText = "SUCCESS";
                 feedbackTitle.style.color = "var(--success-green)";
-                feedbackPlaceholder.innerHTML = `<div class="text-9xl">✅</div>`;
-                feedbackPlaceholder.style.display = 'flex';
+                feedbackPlaceholder.innerHTML = '';
+                feedbackPlaceholder.style.display = 'none';
+                feedbackBg.style.display = 'none';
             } else {
                 lives--;
                 feedbackTitle.innerText = "FAILED";
                 feedbackTitle.style.color = "var(--point-red)";
-                feedbackPlaceholder.innerHTML = `<div class="text-9xl">❌</div>`;
-                feedbackPlaceholder.style.display = 'flex';
+                
+                if (data.failImg) {
+                    feedbackBg.src = data.failImg;
+                    feedbackBg.style.display = 'block';
+                    feedbackPlaceholder.style.display = 'none';
+                    feedbackBg.onerror = () => {
+                        feedbackBg.style.display = 'none';
+                        feedbackPlaceholder.style.display = 'none';
+                        feedbackPlaceholder.innerHTML = '';
+                    };
+                } else {
+                    feedbackPlaceholder.innerHTML = '';
+                    feedbackPlaceholder.style.display = 'none';
+                    feedbackBg.style.display = 'none';
+                }
             }
             
-            document.getElementById('feedback-desc').innerText = data.feedback;
+            desc.innerText = data.feedback;
             updateLives();
         }
 
         function toNext() {
-            if (lives <= 0) return showScreen('game-over-screen');
+            if (lives <= 0) {
+                showScreen('game-over-screen');
+                return;
+            }
+            
             currentIdx++;
             if (currentIdx < quizData.length) {
                 showScreen('gameplay-screen');
@@ -428,14 +554,53 @@
 
         function showFinalResult() {
             showScreen('result-screen');
-            const rank = score === quizData.length ? "Honorary Korean" : (score >= 6 ? "K-Explorer" : "K-Newbie");
-            document.getElementById('rank-display').innerText = rank;
-            document.getElementById('result-desc').innerText = `You scored ${score}/${quizData.length}!`;
+            const resultDesc = document.getElementById('result-desc');
+            const resultBadge = document.getElementById('result-badge');
+            
+            let rank = "K-Newbie", msg = "You're getting there! Keep learning the local ways.", badgeSrc = "";
+            
+            if (score === 5) { 
+                rank = "Honorary Korean"; 
+                msg = "Perfect! You are officially an Honorary Korean. You know the rules better than locals!"; 
+                badgeSrc = "badge_5.png"; 
+            } else if (score === 4) { 
+                rank = "Korean at Heart"; 
+                msg = "Amazing! You truly have the soul of a Korean. Your understanding is top-tier!"; 
+                badgeSrc = "badge_4.png"; 
+            } else if (score === 3) { 
+                rank = "Pro Vibe Reader"; 
+                msg = "Impressive! Your 'Nunchi' (vibe reading) is on another level. You'll do great!"; 
+                badgeSrc = "badge_3.png"; 
+            } else if (score >= 2) {
+                rank = "K-Explorer";
+                msg = "Great Job! You have a solid grasp of Korean culture. Enjoy your trip!";
+                badgeSrc = "badge_2.png";
+            } else {
+                badgeSrc = "badge_1.png";
+            }
+            
+            finalRank = rank; 
+            
+            if (badgeSrc) {
+                resultBadge.src = badgeSrc;
+                resultBadge.style.display = 'block';
+                resultBadge.onerror = () => { resultBadge.style.display = 'none'; }; 
+            } else {
+                resultBadge.style.display = 'none';
+            }
+
+            resultDesc.innerText = msg;
         }
 
         function updateLives() {
             const bar = document.getElementById('lives-display');
-            bar.innerHTML = lives > 0 ? '❤️'.repeat(lives) : '🖤'.repeat(3);
+            bar.innerHTML = '';
+            for(let i=0; i<3; i++) {
+                const s = document.createElement('span');
+                s.innerText = i < lives ? '❤️' : '🖤';
+                s.className = i < lives ? 'text-xl' : 'text-xl grayscale opacity-50';
+                bar.appendChild(s);
+            }
         }
 
         function showScreen(id) {
@@ -443,17 +608,39 @@
             document.getElementById(id).classList.add('active-screen');
         }
 
+        const SHARE_URL = "https://sunny-cat-7f7440.netlify.app/";
+
         function copyGameLink(btn) {
             const dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
-            dummy.value = `I scored ${score}/${quizData.length} on K-EARTH Survival Guide! 🇰🇷\n${SHARE_URL}`;
+            dummy.value = `I scored ${score}/5 on K-EARTH Survival Guide! 🇰🇷🎮 Can you beat my K-IQ? \n${SHARE_URL}`;
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);
+            
             const toast = document.getElementById('toast');
             toast.style.display = 'block';
             setTimeout(() => toast.style.display = 'none', 2000);
+            
+            const originalText = btn.innerText;
             btn.innerText = "Copied! ✅";
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        }
+
+        async function shareToSocial() {
+            const text = `I got Rank "${finalRank}" on the K-EARTH Survival Guide! 🇰🇷🎮 Score: ${score}/5. Can you survive in Korea?`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'K-EARTH Survival Guide',
+                        text: text,
+                        url: SHARE_URL,
+                    });
+                } catch (err) { }
+            } else {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(SHARE_URL)}`, '_blank');
+            }
         }
 
         window.onload = () => updateLives();
